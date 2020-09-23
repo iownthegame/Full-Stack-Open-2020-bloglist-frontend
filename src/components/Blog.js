@@ -9,7 +9,7 @@ const blogStyle = {
   marginBottom: 5
 }
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, handleLikeClick }) => {
   const [visible, setVisible] = useState(false)
 
   const BlogRef = useRef()
@@ -25,7 +25,7 @@ const Blog = ({ blog }) => {
 
       <Togglable buttonLabel="" ref={BlogRef}>
         <div>{blog.url}</div>
-        <div>likes {blog.likes} <button>like</button></div>
+        <div>likes {blog.likes} <button onClick={() => handleLikeClick(blog)}>like</button></div>
         <div>{blog.author}</div>
       </Togglable>
     </div>

@@ -68,6 +68,22 @@ const App = () => {
       })
   }
 
+  const handleLikeClick = (blogObject) => {
+    const updateBlogObject = {
+      user: blogObject.user._id,
+      likes: blogObject.likes + 1,
+      author: blogObject.author,
+      title: blogObject.title,
+      url: blogObject.url
+    }
+
+    blogService
+      .update(blogObject.id, updateBlogObject)
+      .then(returnedBlog => {
+        setBlogs(blogs.map(blog => blog.id === blogObject.id ? returnedBlog: blog))
+      })
+  }
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
@@ -117,7 +133,7 @@ const App = () => {
       </Togglable>
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} handleLikeClick={handleLikeClick} />
       )}
     </div>
   )
