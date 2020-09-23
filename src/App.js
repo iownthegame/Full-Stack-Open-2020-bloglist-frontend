@@ -68,9 +68,19 @@ const App = () => {
       })
   }
 
+  const deleteBlog = (blogObject) => {
+    if (!window.confirm(`Remove blog ${blogObject.title}`)) return
+
+    blogService
+      .remove(blogObject.id)
+      .then(() => {
+        setBlogs(blogs.filter(blog => blog.id !== blogObject.id))
+      })
+  }
+
   const handleLikeClick = (blogObject) => {
     const updateBlogObject = {
-      user: blogObject.user._id,
+      user: blogObject.user.id,
       likes: blogObject.likes + 1,
       author: blogObject.author,
       title: blogObject.title,
@@ -79,8 +89,8 @@ const App = () => {
 
     blogService
       .update(blogObject.id, updateBlogObject)
-      .then(returnedBlog => {
-        setBlogs(blogs.map(blog => blog.id === blogObject.id ? returnedBlog: blog))
+      .then(_returnedBlog => {
+        setBlogs(blogs.map(blog => blog.id === blogObject.id ? {...blogObject, likes: blogObject.likes + 1} : blog))
       })
   }
 
@@ -135,7 +145,13 @@ const App = () => {
       </Togglable>
 
       {sortedBlogs.map(blog =>
-        <Blog key={blog.id} blog={blog} handleLikeClick={handleLikeClick} />
+        <Blog
+          key={blog.id}
+          blog={blog}
+          handleLikeClick={handleLikeClick}
+          user={user}
+          deleteBlog={deleteBlog}
+        />
       )}
     </div>
   )

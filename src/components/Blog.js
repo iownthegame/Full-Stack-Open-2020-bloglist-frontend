@@ -9,7 +9,7 @@ const blogStyle = {
   marginBottom: 5
 }
 
-const Blog = ({ blog, handleLikeClick }) => {
+const Blog = ({ blog, handleLikeClick, user, deleteBlog }) => {
   const [visible, setVisible] = useState(false)
 
   const BlogRef = useRef()
@@ -27,6 +27,7 @@ const Blog = ({ blog, handleLikeClick }) => {
         <div>{blog.url}</div>
         <div>likes {blog.likes} <button onClick={() => handleLikeClick(blog)}>like</button></div>
         <div>{blog.author}</div>
+        {blog.user && user.username === blog.user.username && <button onClick={() => deleteBlog(blog)}>remove</button>}
       </Togglable>
     </div>
   )
