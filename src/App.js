@@ -6,7 +6,7 @@ import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
 
-import './App.css';
+import './App.css'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -89,8 +89,8 @@ const App = () => {
 
     blogService
       .update(blogObject.id, updateBlogObject)
-      .then(_returnedBlog => {
-        setBlogs(blogs.map(blog => blog.id === blogObject.id ? {...blogObject, likes: blogObject.likes + 1} : blog))
+      .then(() => {
+        setBlogs(blogs.map(blog => blog.id === blogObject.id ? { ...blogObject, likes: blogObject.likes + 1 } : blog))
       })
   }
 
@@ -98,7 +98,7 @@ const App = () => {
     <form onSubmit={handleLogin}>
       <div>
         username
-          <input
+        <input
           type="text"
           value={username}
           name="Username"
@@ -107,7 +107,7 @@ const App = () => {
       </div>
       <div>
         password
-          <input
+        <input
           type="password"
           value={password}
           name="Password"

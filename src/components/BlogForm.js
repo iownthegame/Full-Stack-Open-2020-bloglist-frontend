@@ -11,7 +11,7 @@ const BlogForm = ({ createBlog }) => {
 
     // setNotification('success', `a new blog ${title} by ${author} added`)
 
-    createBlog({title, author, url})
+    createBlog({ title, author, url })
 
     setTitle('')
     setAuthor('')
