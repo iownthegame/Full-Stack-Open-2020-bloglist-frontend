@@ -34,4 +34,20 @@ describe('Blog app', function() {
       cy.get('.error').should('have.css', 'color', 'rgb(255, 0, 0)')
     })
   })
+
+  describe.only('When logged in', function() {
+    beforeEach(function() {
+      cy.login({ username: 'mluukkai', password: 'salainen' })
+    })
+
+    it('A blog can be created', function() {
+      cy.contains('create new blog').click()
+      cy.get('#title').type('title 123')
+      cy.get('#author').type('author')
+      cy.get('#url').type('url')
+      cy.get('#create-button').click()
+
+      cy.contains('title 123')
+    })
+  })
 })
