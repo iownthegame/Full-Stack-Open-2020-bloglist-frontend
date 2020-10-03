@@ -20,8 +20,8 @@ const Blog = ({ blog, handleLikeClick, user, deleteBlog }) => {
   }
 
   return (
-    <div style={blogStyle}>
-      <div>{blog.title} <button className="viewButton" onClick={toggleVisibility}>{visible ? 'hide' : 'view'}</button></div>
+    <div style={blogStyle} className="blog">
+      <span className="title">{blog.title}</span> <button className="viewButton" onClick={toggleVisibility}>{visible ? 'hide' : 'view'}</button>
       <div>{blog.author}</div>
 
       <Togglable buttonLabel="" ref={BlogRef}>
