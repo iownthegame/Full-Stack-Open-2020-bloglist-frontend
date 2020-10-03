@@ -61,6 +61,32 @@ describe('Blog app', function() {
         cy.contains('second blog').parent().find('.likeButton').click()
         cy.contains('second blog').parent().should('contain', 'likes 1')
       })
+
+      it('it can be deleted by the created user', function () {
+        cy.contains('second blog').parent().find('.viewButton').click()
+        cy.contains('second blog').parent().find('.removeButton').click()
+        cy.on('window:confirm', () => true)
+        cy.get('html').should('not.contain', 'second blog')
+      })
+
+      it('it can be deleted by the created user', function () {
+        cy.contains('second blog').parent().find('.viewButton').click()
+        cy.contains('second blog').parent().find('.removeButton').click()
+        cy.on('window:confirm', () => true)
+        cy.get('html').should('not.contain', 'second blog')
+      })
+
+      it('it cannot be deleted by other users', function () {
+        const user = {
+          name: 'New User',
+          username: 'new user',
+          password: 'password'
+        }
+        cy.request('POST', 'http://localhost:3001/api/users/', user)
+        cy.login({ username: 'new user', password: 'password' })
+        cy.contains('second blog').parent().find('.viewButton').click()
+        cy.contains('second blog').parent().find('.removeButton').should('not.exist')
+      })
     })
   })
 })
